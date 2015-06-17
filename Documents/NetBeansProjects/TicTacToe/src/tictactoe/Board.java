@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import tictactoe.Player;
 /**
  *
  * @author Sachi
@@ -32,10 +32,10 @@ public class Board extends javax.swing.JFrame {
     public Board() {
         
         
-        Player me=new Player("Player1", "dot");
+        Player me=new Player("Player1", Tictype.DOT);
         activeplayer=me;
         p1=me;
-        Player you=new Player("Player2", "cross");
+        Player you=new Player("Player2", Tictype.CROSS);
         p2=you;
         
         

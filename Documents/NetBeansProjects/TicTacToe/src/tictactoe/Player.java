@@ -4,22 +4,25 @@
  */
 package tictactoe;
 
-import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author Sachi
  */
-public class Player {
+public class Player{
     String name;
     ImageIcon icon;
-    String type;    //type is either dot or cross
+    Tictype type;    //type is either dot or cross
     
-    public Player(String n, String t){
+    public enum Tictype{
+        DOT,CROSS;
+    }
+    
+    public Player(String n, Tictype t){
         name=n;
         type=t;
-        if(t.equals("dot")){
+        if(t.equals(Tictype.DOT)){
             icon=new ImageIcon(getClass().getResource("/Resources/dot.png"));
         }
         else{
