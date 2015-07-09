@@ -20,9 +20,9 @@ public class StartGame extends javax.swing.JFrame {
     boolean issingle=false;
     
     public StartGame() {
-        getContentPane().setBackground(Color.BLACK);
+        getContentPane().setBackground(Color.white);
         initComponents();
-        startbut.setBackground(new Color(155,83,156));
+        startbut.setBackground(Color.white);
         startbut.setContentAreaFilled(false);
         startbut.setOpaque(true);
         setLocationRelativeTo(null);
@@ -57,10 +57,10 @@ public class StartGame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(115, 197, 225));
+        jPanel1.setBackground(new java.awt.Color(43, 57, 151));
 
         startbut.setBackground(new java.awt.Color(91, 177, 41));
-        startbut.setForeground(new java.awt.Color(255, 255, 255));
+        startbut.setForeground(new java.awt.Color(43, 57, 151));
         startbut.setText("Start Game!");
         startbut.setOpaque(false);
         startbut.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +69,7 @@ public class StartGame extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(235, 101, 160));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Player2 name");
@@ -104,7 +104,7 @@ public class StartGame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel4.setBackground(new java.awt.Color(235, 101, 160));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Player1 name");
@@ -170,11 +170,11 @@ public class StartGame extends javax.swing.JFrame {
                         .addComponent(startbut))))
         );
 
-        jPanel2.setBackground(new java.awt.Color(188, 207, 2));
+        jPanel2.setBackground(new java.awt.Color(43, 57, 151));
 
-        singleplayerradio.setBackground(new java.awt.Color(155, 83, 156));
+        singleplayerradio.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(singleplayerradio);
-        singleplayerradio.setForeground(new java.awt.Color(255, 255, 255));
+        singleplayerradio.setForeground(new java.awt.Color(43, 57, 151));
         singleplayerradio.setText("Single Player");
         singleplayerradio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,9 +182,9 @@ public class StartGame extends javax.swing.JFrame {
             }
         });
 
-        doubleplayerradio.setBackground(new java.awt.Color(155, 83, 156));
+        doubleplayerradio.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(doubleplayerradio);
-        doubleplayerradio.setForeground(new java.awt.Color(255, 255, 255));
+        doubleplayerradio.setForeground(new java.awt.Color(43, 57, 151));
         doubleplayerradio.setSelected(true);
         doubleplayerradio.setText("Two Players");
         doubleplayerradio.addActionListener(new java.awt.event.ActionListener() {
@@ -215,7 +215,7 @@ public class StartGame extends javax.swing.JFrame {
         );
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(155, 83, 156));
+        jTextField1.setBackground(new java.awt.Color(43, 57, 151));
         jTextField1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
