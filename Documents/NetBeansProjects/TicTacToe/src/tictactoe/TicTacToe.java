@@ -5,10 +5,7 @@
 package tictactoe;
 
 import java.awt.Color;
-import java.lang.invoke.MethodHandles;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -21,6 +18,7 @@ public class TicTacToe {
     Board newboard;
     private int nbr1;
     private int nbr2;
+    String difficulty;
 
     protected boolean checkwin(int i) {
         return checkrow(i) || checkcol(i) || checkdiag(i);
@@ -86,13 +84,48 @@ public class TicTacToe {
         }
         return false;
     }
+    
+    private int easydeci(){
+        for(int i=0;i<9;i++){
+            if(buts[i].isEnabled()){
+                return i;
+            }
+        }
+        return 0;
+    }
 
     protected int computerdecision() {
+        //if the difficulty level is easy, give out a random number
+        if(this.difficulty.equals("easy")){
+            return easydeci();
+        }
+        
+        //if medium - check middle-corners -and rest
         int out = 100;
+        if (buts[4].isEnabled()) {
+            return 4;
+        }
+
+        for (int j = 0; j < 9; j = j + 2) {//choose a corner
+            if (buts[j].isEnabled()) {
+                return j;
+            }
+
+        }
+        for (int j = 1; j < 8; j = j + 2) {
+            if (buts[j].isEnabled()) {
+                return j;
+            }
+        }
+        
+        if(this.difficulty.equals("okay") && out>50){
+            return easydeci();
+        }
+        //above didn't work -- go hard - double possibilities
+        
         for (int i = 0; i < 9; i++) {
             if (buts[i].isEnabled()) {
                 checkcol(i);//update horizontal neighbors
-                System.out.println("checking col- "+i);
                 if (buts[nbr1].getActionCommand().equals(buts[nbr2].getActionCommand()) && !buts[nbr1].getActionCommand().equals("")) {
                     return i;
                 }
@@ -117,39 +150,19 @@ public class TicTacToe {
                     return 4;
                 }
             }
-
         }
-        //above didn't work
-        if (buts[4].isEnabled()) {
-            return 4;
-        }
-
-        for (int j = 0; j < 9; j = j + 2) {//choose a corner
-            if (buts[j].isEnabled()) {
-                return j;
-            }
-
-        }
-        for (int j = 1; j < 8; j = j + 2) {
-            if (buts[j].isEnabled()) {
-                return j;
-            }
-        }
-        if (out > 8) {
-            System.out.println("wrong");
-            out = 7;
-        }
+        
         return out;
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        TicTacToe n = new TicTacToe();
-        for (int i = 0; i < 9; i++) {
-            n.checkcol(i);
-            System.out.println("--------");
-        }
-    }
+//    public static void main(String[] args) {
+//        TicTacToe n = new TicTacToe();
+//        for (int i = 0; i < 9; i++) {
+//            n.checkcol(i);
+//            System.out.println("--------");
+//        }
+//    }
 }

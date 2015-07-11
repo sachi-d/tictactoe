@@ -24,11 +24,11 @@ public class Board extends javax.swing.JFrame {
     Player activeplayer;
     Player p1;
     Player p2;
-    StartGame mygame;
+    StartGame startpane;
     JLabel p;
     JPanel bigb;
     boolean issingle;
-    TicTacToe newgame = new TicTacToe();
+    TicTacToe newgame;
     int clickcount;
 
     /**
@@ -37,11 +37,10 @@ public class Board extends javax.swing.JFrame {
      * @param pl1
      * @param pl2
      * @param game
-     * @param sing
      */
-    public Board(String pl1, String pl2, StartGame game, boolean sing) {
-        issingle = sing;
-        mygame = game;
+    public Board(String pl1, String pl2, StartGame game) {
+        newgame= new TicTacToe();
+        startpane = game;
         p1 = new Player(pl1, Player.Tictype.DOT);
         activeplayer = p1;
 
@@ -55,14 +54,14 @@ public class Board extends javax.swing.JFrame {
         namelabel1.setText(pl1);
         namelabel2.setText(pl2);
         startup();
-
         setLocationRelativeTo(null);
     }
 
     private void startup() {
+        
         playername.setText(activeplayer.getname() + "'s chance");
         final JPanel board = new JPanel(new GridLayout(3, 3, 5, 5));
-        board.setBackground(Color.black);
+        board.setBackground(new Color(43,87,151));
         for (int i = 0; i < 9; i++) {
             final int j = i;
             final JButton but = new JButton();
@@ -115,6 +114,10 @@ public class Board extends javax.swing.JFrame {
         repaint();
     }
 
+    public void setplayertype(Boolean sing){
+        issingle=sing;
+    }
+
     private void changeplayer() {
         if (activeplayer == p1) {
             activeplayer = p2;
@@ -165,16 +168,17 @@ public class Board extends javax.swing.JFrame {
         dance4 = new javax.swing.JLabel();
         namelabel1 = new javax.swing.JLabel();
         namelabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tic Tac Toe");
         setResizable(false);
 
-        playername.setBackground(new java.awt.Color(188, 207, 2));
-        playername.setFont(new java.awt.Font("Khmer UI", 1, 18)); // NOI18N
+        playername.setBackground(new java.awt.Color(43, 87, 151));
+        playername.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         playername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        bigbb.setBackground(new java.awt.Color(0, 0, 0));
+        bigbb.setBackground(new java.awt.Color(43, 87, 151));
         bigbb.setAutoscrolls(true);
         bigbb.setLayout(new java.awt.BorderLayout());
 
@@ -203,13 +207,19 @@ public class Board extends javax.swing.JFrame {
         dance4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/finalcross.gif"))); // NOI18N
         dance4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        namelabel1.setBackground(new java.awt.Color(115, 197, 225));
-        namelabel1.setFont(new java.awt.Font("Khmer UI", 1, 18)); // NOI18N
+        namelabel1.setBackground(new java.awt.Color(43, 87, 151));
+        namelabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         namelabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        namelabel2.setBackground(new java.awt.Color(115, 197, 225));
-        namelabel2.setFont(new java.awt.Font("Khmer UI", 1, 18)); // NOI18N
+        namelabel2.setBackground(new java.awt.Color(43, 87, 151));
+        namelabel2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         namelabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel1.setBackground(new java.awt.Color(43, 87, 151));
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Tic Tac Toe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,7 +236,8 @@ public class Board extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(playername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bigbb, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
+                            .addComponent(bigbb, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(dance2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -240,27 +251,26 @@ public class Board extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dance2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(namelabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dance4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dance1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(namelabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dance3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(playername, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addComponent(bigbb, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(bigbb, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(dance2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(namelabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dance4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(dance1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(namelabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dance3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(52, 52, 52))
@@ -272,7 +282,7 @@ public class Board extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
 
-        mygame.setVisible(true);
+        startpane.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -323,6 +333,7 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JLabel dance3;
     private javax.swing.JLabel dance4;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel namelabel1;
     private javax.swing.JLabel namelabel2;
     private javax.swing.JLabel playername;
