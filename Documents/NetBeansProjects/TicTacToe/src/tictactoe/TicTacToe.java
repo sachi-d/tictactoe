@@ -18,7 +18,7 @@ public class TicTacToe {
     Board newboard;
     private int nbr1;
     private int nbr2;
-    String difficulty;
+    String difficulty; //--"easy" "okay" or "hard"
 
     protected boolean checkwin(int i) {
         return checkrow(i) || checkcol(i) || checkdiag(i);
@@ -84,23 +84,17 @@ public class TicTacToe {
         }
         return false;
     }
-    
-    private int easydeci(){
-        for(int i=0;i<9;i++){
-            if(buts[i].isEnabled()){
+
+    private int easydeci() {
+        for (int i = 0; i < 9; i++) {
+            if (buts[i].isEnabled()) {
                 return i;
             }
         }
         return 0;
     }
 
-    protected int computerdecision() {
-        //if the difficulty level is easy, give out a random number
-        if(this.difficulty.equals("easy")){
-            return easydeci();
-        }
-        
-        //if medium - check middle-corners -and rest
+    private int okaydeci() {//if medium - check middle-corners -and rest
         int out = 100;
         if (buts[4].isEnabled()) {
             return 4;
@@ -117,52 +111,50 @@ public class TicTacToe {
                 return j;
             }
         }
-        
-        if(this.difficulty.equals("okay") && out>50){
-            return easydeci();
-        }
-        //above didn't work -- go hard - double possibilities
-        
-        for (int i = 0; i < 9; i++) {
-            if (buts[i].isEnabled()) {
-                checkcol(i);//update horizontal neighbors
-                if (buts[nbr1].getActionCommand().equals(buts[nbr2].getActionCommand()) && !buts[nbr1].getActionCommand().equals("")) {
-                    return i;
-                }
-                checkrow(i);//update vertical neighbors
-                
-                if (buts[nbr1].getActionCommand().equals(buts[nbr2].getActionCommand()) && !buts[nbr1].getActionCommand().equals("")) {
-                    return i;
-                }
-                //check each diagonal member
-                if(i!=4 && !buts[4].getActionCommand().equals("")){
-                    if (i == 0 && (buts[4].getActionCommand().equals(buts[8].getActionCommand()))) {
-                    return 0;
-                } else if (i == 2 && (buts[4].getActionCommand().equals(buts[6].getActionCommand())) ) {
-                    return 2;
-                } else if (i == 6 && (buts[4].getActionCommand().equals(buts[2].getActionCommand())) ) {
-                    return 6;
-                } else if (i == 8 && (buts[4].getActionCommand().equals(buts[0].getActionCommand())) ) {
-                    return 8;
-                }
-                }
-                if (i == 4 && ((buts[8].getActionCommand().equals(buts[0].getActionCommand()) && !buts[0].getActionCommand().equals("")) || (buts[2].getActionCommand().equals(buts[6].getActionCommand()) && !buts[nbr1].getActionCommand().equals("")))) {
-                    return 4;
-                }
-            }
-        }
-        
-        return out;
+        return easydeci();
+
     }
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String[] args) {
-//        TicTacToe n = new TicTacToe();
-//        for (int i = 0; i < 9; i++) {
-//            n.checkcol(i);
-//            System.out.println("--------");
-//        }
-//    }
+    protected int computerdecision() {
+        //if the difficulty level is easy, give out a random number
+        if (this.difficulty.equals("easy")) {
+            return easydeci();
+        }
+        if (this.difficulty.equals("okay")) {
+            return okaydeci();
+        } //above didn't work -- go hard - double possibilities
+        else {
+            for (int i = 0; i < 9; i++) {
+                if (buts[i].isEnabled()) {
+                    checkcol(i);//update horizontal neighbors
+                    if (buts[nbr1].getActionCommand().equals(buts[nbr2].getActionCommand()) && !buts[nbr1].getActionCommand().equals("")) {
+                        return i;
+                    }
+                    checkrow(i);//update vertical neighbors
+
+                    if (buts[nbr1].getActionCommand().equals(buts[nbr2].getActionCommand()) && !buts[nbr1].getActionCommand().equals("")) {
+                        return i;
+                    }
+                    //check each diagonal member
+                    if (i != 4 && !buts[4].getActionCommand().equals("")) {
+                        if (i == 0 && (buts[4].getActionCommand().equals(buts[8].getActionCommand()))) {
+                            return 0;
+                        } else if (i == 2 && (buts[4].getActionCommand().equals(buts[6].getActionCommand()))) {
+                            return 2;
+                        } else if (i == 6 && (buts[4].getActionCommand().equals(buts[2].getActionCommand()))) {
+                            return 6;
+                        } else if (i == 8 && (buts[4].getActionCommand().equals(buts[0].getActionCommand()))) {
+                            return 8;
+                        }
+                    }
+                    if (i == 4 && ((buts[8].getActionCommand().equals(buts[0].getActionCommand()) && !buts[0].getActionCommand().equals("")) || (buts[2].getActionCommand().equals(buts[6].getActionCommand()) && !buts[nbr1].getActionCommand().equals("")))) {
+                        return 4;
+                    }
+                }
+            }
+            return okaydeci();//if above didnt work, check okay conditions and easy conditions-inside
+        }
+
+    }
+
 }

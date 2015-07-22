@@ -25,32 +25,27 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="dance1" alignment="0" pref="117" max="32767" attributes="0"/>
-                          <Component id="namelabel1" alignment="0" pref="117" max="32767" attributes="0"/>
-                          <Component id="dance3" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="playername" max="32767" attributes="0"/>
-                          <Component id="bigbb" pref="307" max="32767" attributes="0"/>
-                          <Component id="jLabel1" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="dance2" max="32767" attributes="0"/>
-                          <Component id="namelabel2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="dance4" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                      </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="dance1" alignment="0" pref="117" max="32767" attributes="0"/>
+                  <Component id="namelabel1" alignment="0" pref="117" max="32767" attributes="0"/>
+                  <Component id="dance3" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jButton1" pref="307" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="playername" max="32767" attributes="0"/>
+                      <Component id="bigbb" pref="307" max="32767" attributes="0"/>
+                      <Component id="jLabel1" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="163" max="-2" attributes="0"/>
-                  </Group>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="dance2" max="32767" attributes="0"/>
+                  <Component id="namelabel2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="dance4" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
@@ -62,7 +57,7 @@
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel1" pref="37" max="32767" attributes="0"/>
+                      <Component id="jLabel1" pref="35" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="playername" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -83,9 +78,9 @@
                       <Component id="dance3" min="-2" pref="108" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,7 +100,7 @@
     <Container class="javax.swing.JPanel" name="bigbb">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="97" green="57" red="2b" type="rgb"/>
+          <Color blue="0" green="69" red="fa" type="rgb"/>
         </Property>
         <Property name="autoscrolls" type="boolean" value="true"/>
       </Properties>
@@ -114,6 +109,12 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="69" red="fa" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="SansSerif" size="12" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Go Back"/>
       </Properties>
       <Events>
@@ -199,16 +200,14 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="97" green="57" red="2b" type="rgb"/>
+          <Color blue="0" green="69" red="fa" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="24" style="0"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Tic Tac Toe"/>
+        <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
   </SubComponents>
