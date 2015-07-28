@@ -30,6 +30,7 @@ public class Board extends javax.swing.JFrame {
     boolean issingle;
     TicTacToe newgame;
     int clickcount;
+    JDBC connection;
 
     /**
      * Creates new form Board
@@ -38,30 +39,39 @@ public class Board extends javax.swing.JFrame {
      * @param pl2
      * @param game
      */
-    public Board(String pl1, String pl2, StartGame game) {
+    public Board(Player pl1, Player pl2, StartGame game) {
+        
+        connection=new JDBC();
         newgame= new TicTacToe();
         startpane = game;
-        p1 = new Player(pl1, Player.Tictype.DOT);
+        p1 = pl1;
         activeplayer = p1;
 
-        p2 = new Player(pl2, Player.Tictype.CROSS);
+        p2 = pl2;
 
         getContentPane().setBackground(Color.white);
 
         initComponents();
         
-        dance1.setVisible(false);
-        dance2.setVisible(false);
-        namelabel1.setText(pl1);
-        namelabel2.setText(pl2);
+        
+        
         startup();
-        jButton1.setBackground(new Color(250,105,0));
-        jButton1.setOpaque(true);
-        jButton1.setContentAreaFilled(false);
+        
         setLocationRelativeTo(null);
     }
 
     private void startup() {
+        dance1.setVisible(false);
+        dance2.setVisible(false);
+        namelabel1.setText(p1.getname());
+        namelabel2.setText(p2.getname());
+        p1score.setText(String.valueOf(p1.getScore()));
+        if(!issingle){
+            p2score.setText(String.valueOf(p2.getScore()));
+        }
+        jButton1.setBackground(new Color(250,105,0));
+        jButton1.setContentAreaFilled(false);
+        jButton1.setOpaque(true);
         
         playername.setText(activeplayer.getname() + "'s chance");
         final JPanel board = new JPanel(new GridLayout(3, 3, 5, 5));
@@ -173,6 +183,8 @@ public class Board extends javax.swing.JFrame {
         namelabel1 = new javax.swing.JLabel();
         namelabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        p1score = new javax.swing.JLabel();
+        p2score = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tic Tac Toe");
@@ -227,6 +239,13 @@ public class Board extends javax.swing.JFrame {
         jLabel1.setText("Tic Tac Toe");
         jLabel1.setOpaque(true);
 
+        p1score.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        p1score.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p1score.setText(" ");
+
+        p2score.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        p2score.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,44 +255,49 @@ public class Board extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(dance1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
                     .addComponent(namelabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                    .addComponent(dance3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dance3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(p1score, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(playername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bigbb, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(playername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bigbb, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dance2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(namelabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dance4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dance4, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                    .addComponent(p2score, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(dance2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(namelabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dance4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(p2score, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(playername, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(bigbb, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(dance2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(namelabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dance4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(dance1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(namelabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dance3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dance3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(p1score, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addComponent(jButton1)
                 .addGap(37, 37, 37))
@@ -339,6 +363,8 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel namelabel1;
     private javax.swing.JLabel namelabel2;
+    private javax.swing.JLabel p1score;
+    private javax.swing.JLabel p2score;
     private javax.swing.JLabel playername;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
  */
 public class Player {
 
+    int id;
+    int score;
     String name;
     Icon icon;
     Tictype type;    //type is either dot or cross
@@ -22,9 +24,11 @@ public class Player {
         DOT, CROSS;
     }
 
-    public Player(String n, Tictype t) {
+    public Player(String n, Tictype t,String Id,String Score) {
         name = n;
         type = t;
+        id=Integer.parseInt(Id);
+        score=Integer.parseInt(Score);
         if (t.equals(Tictype.DOT)) {
             icon = new ImageIcon(getClass().getResource("/Resources/finaldot.gif"));
         } else {
@@ -39,4 +43,9 @@ public class Player {
     public String getname() {
         return name;
     }
+
+    public int getScore() {
+        return score;
+    }
+    
 }

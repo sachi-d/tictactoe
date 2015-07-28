@@ -7,12 +7,15 @@ package tictactoe;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Sachi
  */
 public class TicTacToe {
+    
+    private static Logger logger =Logger.getLogger(TicTacToe.class);
 
     JButton[] buts = new JButton[9];
     Board newboard;
@@ -36,9 +39,11 @@ public class TicTacToe {
         if (i % 2 == 0) {
             if ((plnm.equals(buts[0].getActionCommand())) && (plnm.equals(buts[4].getActionCommand())) && (plnm.equals(buts[8].getActionCommand()))) {
                 setredborder(0, 4, 8);
+                logger.info("won by matching diagonal - 0 4 8");
                 return true;
             } else if ((plnm.equals(buts[2].getActionCommand())) && (plnm.equals(buts[6].getActionCommand())) && (plnm.equals(buts[4].getActionCommand()))) {
                 setredborder(2, 4, 6);
+                logger.info("won by matching diagonal - 2 4 6");
                 return true;
             }
         }
@@ -60,6 +65,7 @@ public class TicTacToe {
         nbr2 = n + k2;
         if (!plnm.equals("") && plnm.equals(buts[n + k1].getActionCommand()) && plnm.equals(buts[n + k2].getActionCommand())) {
             setredborder(n, n + k1, n + k2);
+            logger.info("won by matching row - "+n+(n+k1)+(n+k2));
             return true;
         }
         return false;
@@ -80,6 +86,7 @@ public class TicTacToe {
         nbr2 = n + k2;
         if (!plnm.equals("") && plnm.equals(buts[n + k1].getActionCommand()) && plnm.equals(buts[n + k2].getActionCommand())) {
             setredborder(n, n + k1, n + k2);
+            logger.info("won by matching column - "+n+(n+k1)+(n+k2));
             return true;
         }
         return false;
