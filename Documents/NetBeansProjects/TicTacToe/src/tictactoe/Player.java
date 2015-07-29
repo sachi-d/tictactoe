@@ -48,4 +48,13 @@ public class Player {
         return score;
     }
     
+    public void updateScore(Boolean didwin){
+        if(didwin){
+            this.score++;
+        }
+        
+        JDBC newcon = new JDBC();
+        newcon.putData("UPDATE users SET Score== '" +score+ "'  WHERE UserID= '" +id+ "'  ");
+    }
+    
 }

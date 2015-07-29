@@ -7,17 +7,13 @@ package tictactoe;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Graphics;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -140,8 +136,7 @@ public class StartGame extends javax.swing.JFrame {
         playertype.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         playertype.setForeground(new java.awt.Color(250, 105, 0));
         playertype.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Single Player", "Two Players" }));
-        playertype.setSelectedIndex(1);
-        playertype.setSelectedItem(1);
+        playertype.setSelectedItem(0);
         playertype.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(250, 105, 0), 4));
         playertype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,6 +223,7 @@ public class StartGame extends javax.swing.JFrame {
         buttonGroup2.add(pl2newuser);
         pl2newuser.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         pl2newuser.setForeground(new java.awt.Color(255, 255, 255));
+        pl2newuser.setSelected(true);
         pl2newuser.setText("New User");
         pl2newuser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,19 +236,8 @@ public class StartGame extends javax.swing.JFrame {
         pl2exist.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         pl2exist.setForeground(new java.awt.Color(255, 255, 255));
         pl2exist.setText("Existing user");
-        pl2exist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pl2existActionPerformed(evt);
-            }
-        });
 
         player2list.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
-        player2list.setEnabled(false);
-        player2list.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                player2listMouseClicked(evt);
-            }
-        });
         player2list.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 player2listActionPerformed(evt);
@@ -267,9 +252,8 @@ public class StartGame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(pl2newuser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pl2exist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(player2list, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pl2exist, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player2list, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -303,19 +287,8 @@ public class StartGame extends javax.swing.JFrame {
         pl1exist.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         pl1exist.setForeground(new java.awt.Color(255, 255, 255));
         pl1exist.setText("Existing user");
-        pl1exist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pl1existActionPerformed(evt);
-            }
-        });
 
         player1list.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
-        player1list.setEnabled(false);
-        player1list.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                player1listMouseClicked(evt);
-            }
-        });
         player1list.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 player1listActionPerformed(evt);
@@ -400,16 +373,21 @@ public class StartGame extends javax.swing.JFrame {
 
         if ("".equals(pl1name.getText()) || "".equals(pl2name.getText())) {
             JOptionPane.showMessageDialog(this, "Please enter player names", "Empty player details", JOptionPane.ERROR_MESSAGE);
+        } else if (pl1name.getText().equalsIgnoreCase("Computer")) {
+            
+            JOptionPane.showMessageDialog(this, "Please enter a different player name", "False player details", JOptionPane.ERROR_MESSAGE);
         } else {
+
             //get player1 details----
             ResultSet m;
             if (pl1newuser.isSelected()) {
                 String player1name = pl1name.getText();
-                connection.putData("INSERT INTO users(Name,Score) VALUES ('" + player1name + "',0");
+                connection.putData("INSERT INTO users(Name,Score) VALUES ('" + player1name + "','0')");
                 try {
-                    m = connection.getData("SELECT * FROM users WHERE Name='" + player1name + "' ");
-                    player1 = new Player(m.getString(2), Player.Tictype.DOT, m.getString(1), m.getString(3));
-
+                    m = connection.getData("SELECT * FROM users WHERE Name='" + player1name + "'");
+                    if (m.next()) {
+                        player1 = new Player(m.getString(2), Player.Tictype.DOT, m.getString(1), m.getString(3));
+                    }
                 } catch (Exception ex) {
                     Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -417,7 +395,9 @@ public class StartGame extends javax.swing.JFrame {
                 String player1name = player1list.getSelectedItem().toString();
                 try {
                     m = connection.getData("SELECT * FROM users WHERE Name='" + player1name + "' ");
-                    player1 = new Player(m.getString(2), Player.Tictype.DOT, m.getString(1), m.getString(3));
+                    if (m.next()) {
+                        player1 = new Player(m.getString(2), Player.Tictype.DOT, m.getString(1), m.getString(3));
+                    }
                 } catch (Exception ex) {
                     Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -432,7 +412,9 @@ public class StartGame extends javax.swing.JFrame {
                     connection.putData("INSERT INTO users(Name,Score) VALUES ('" + player2name + "',0");
                     try {
                         n = connection.getData("SELECT * FROM users WHERE Name='" + player2name + "' ");
-                        player2 = new Player(n.getString(2), Player.Tictype.DOT, n.getString(1), n.getString(3));
+                        if(n.next()){
+                            player2 = new Player(n.getString(2), Player.Tictype.DOT, n.getString(1), n.getString(3));
+                        }
                     } catch (Exception ex) {
                         Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -440,7 +422,9 @@ public class StartGame extends javax.swing.JFrame {
                     String player2name = player2list.getSelectedItem().toString();
                     try {
                         n = connection.getData("SELECT * FROM users WHERE Name='" + player2name + "' ");
-                        player2 = new Player(n.getString(2), Player.Tictype.DOT, n.getString(1), n.getString(3));
+                        if(n.next()){
+                            player2 = new Player(n.getString(2), Player.Tictype.DOT, n.getString(1), n.getString(3));
+                        }
                     } catch (Exception ex) {
                         Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -488,37 +472,23 @@ public class StartGame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_playertypeActionPerformed
 
-    private void pl2existActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pl2existActionPerformed
-        player2list.setEnabled(true);
-    }//GEN-LAST:event_pl2existActionPerformed
-
     private void pl2newuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pl2newuserActionPerformed
-        player2list.setEnabled(false);
+        pl2name.setText("");
     }//GEN-LAST:event_pl2newuserActionPerformed
 
     private void pl1newuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pl1newuserActionPerformed
-        player1list.setEnabled(false);
+        pl1name.setText("");
     }//GEN-LAST:event_pl1newuserActionPerformed
 
-    private void pl1existActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pl1existActionPerformed
-        player1list.setEnabled(true);
-    }//GEN-LAST:event_pl1existActionPerformed
-
     private void player2listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player2listActionPerformed
-
+        pl2name.setText(player1list.getSelectedItem().toString());
+        pl2exist.setSelected(true);
     }//GEN-LAST:event_player2listActionPerformed
 
     private void player1listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player1listActionPerformed
-    }//GEN-LAST:event_player1listActionPerformed
-
-    private void player1listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_player1listMouseClicked
         pl1name.setText(player1list.getSelectedItem().toString());
-
-    }//GEN-LAST:event_player1listMouseClicked
-
-    private void player2listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_player2listMouseClicked
-        pl2name.setText(player2list.getSelectedItem().toString());
-    }//GEN-LAST:event_player2listMouseClicked
+        pl1exist.setSelected(true);
+    }//GEN-LAST:event_player1listActionPerformed
 
     /**
      * @param args the command line arguments

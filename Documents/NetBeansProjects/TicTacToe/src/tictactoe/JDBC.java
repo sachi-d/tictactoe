@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 public class JDBC {
@@ -31,7 +31,7 @@ public class JDBC {
                 con = DriverManager.getConnection(url, "root", "1234");
             }
         } catch (Exception err) {
-            logger.error(err);
+            logger.error("Exception in getconnection - "+err);
         }
         return con;
 
@@ -42,7 +42,8 @@ public class JDBC {
             Statement state = getConnection().createStatement();
             state.executeUpdate(sql);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            logger.error("Exception in put data - " +e);
+            java.util.logging.Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
