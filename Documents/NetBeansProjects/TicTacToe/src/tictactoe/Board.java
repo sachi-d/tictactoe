@@ -10,12 +10,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Time;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-import tictactoe.Player;
 
 /**
  *
@@ -113,7 +110,7 @@ public class Board extends javax.swing.JFrame {
                         dance1.setVisible(true);
                         dance2.setVisible(true);
                         playername.setText("Congratulations!!  " + activeplayer.getname() + " wins");
-                        activeplayer.updateScore(true);
+                        activeplayer.updateScore(startpane.getConnection(),true);
                     } else {
                         if (clickcount == 9) {
                             playername.setText("Draw");
@@ -142,7 +139,6 @@ public class Board extends javax.swing.JFrame {
         }
         if (issingle) {
             int num = newgame.computerdecision();
-            //do something to hold the computer decision for about a second-----------------------------------------
             
             newgame.buts[num].setActionCommand(activeplayer.getname());
             newgame.buts[num].setEnabled(false);
@@ -333,8 +329,9 @@ public class Board extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-
-        startpane.setVisible(true);
+        StartGame std=new StartGame();
+        std.setVisible(true);
+        //startpane.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -13,11 +13,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 public class JDBC {
-    private static Logger logger=Logger.getLogger(JDBC.class);
+    private static final Logger logger=Logger.getLogger(JDBC.class);
 
     String driver = "com.mysql.jdbc.Driver";
     String url = "jdbc:mysql://localhost:3306/tictactoe";
@@ -43,7 +42,6 @@ public class JDBC {
             state.executeUpdate(sql);
         } catch (Exception e) {
             logger.error("Exception in put data - " +e);
-            java.util.logging.Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
  */
 public class TicTacToe {
     
-    private static Logger logger =Logger.getLogger(TicTacToe.class);
+    private static final Logger logger =Logger.getLogger(TicTacToe.class);
 
     JButton[] buts = new JButton[9];
     Board newboard;
@@ -65,7 +65,7 @@ public class TicTacToe {
         nbr2 = n + k2;
         if (!plnm.equals("") && plnm.equals(buts[n + k1].getActionCommand()) && plnm.equals(buts[n + k2].getActionCommand())) {
             setredborder(n, n + k1, n + k2);
-            logger.info("won by matching row - "+n+(n+k1)+(n+k2));
+            logger.info("won by matching row - "+n+" "+(n+k1)+" "+(n+k2));
             return true;
         }
         return false;
@@ -86,7 +86,7 @@ public class TicTacToe {
         nbr2 = n + k2;
         if (!plnm.equals("") && plnm.equals(buts[n + k1].getActionCommand()) && plnm.equals(buts[n + k2].getActionCommand())) {
             setredborder(n, n + k1, n + k2);
-            logger.info("won by matching column - "+n+(n+k1)+(n+k2));
+            logger.info("won by matching column - "+n+" "+(n+k1)+" "+(n+k2));
             return true;
         }
         return false;

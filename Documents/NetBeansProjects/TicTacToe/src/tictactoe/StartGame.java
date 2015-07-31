@@ -8,12 +8,11 @@ package tictactoe;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,12 +23,15 @@ public class StartGame extends javax.swing.JFrame {
     /**
      * Creates new form StartGame
      */
-    boolean issingle = false;
+    private static final Logger logger = Logger.getLogger(StartGame.class);
+    boolean issingle = true;
     JDBC connection;
     Player player1;
     Player player2;
 
     public StartGame() {
+        
+        
         connection = new JDBC();
 
         getContentPane().setBackground(Color.white);
@@ -37,13 +39,17 @@ public class StartGame extends javax.swing.JFrame {
 
         try {
             ResultSet rs = connection.getData("SELECT * FROM users");
+            
             while (rs.next()) {
-                player1list.addItem(rs.getString("Name"));
-                player2list.addItem(rs.getString("Name"));
+                player1list.addItem(rs.getString(2));
+                
+                player2list.addItem(rs.getString(2));
             }
+            player1list.removeItemAt(0);
+            player2list.removeItemAt(0);
 
         } catch (Exception ex) {
-            Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         startbut.setContentAreaFilled(false);
@@ -126,7 +132,6 @@ public class StartGame extends javax.swing.JFrame {
         difficulty.setForeground(new java.awt.Color(250, 105, 0));
         difficulty.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Easy", "Okay", "Difficult" }));
         difficulty.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 200, 220), 5));
-        difficulty.setEnabled(false);
         difficulty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 difficultyActionPerformed(evt);
@@ -195,6 +200,7 @@ public class StartGame extends javax.swing.JFrame {
 
         pl2name.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         pl2name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pl2name.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -225,6 +231,7 @@ public class StartGame extends javax.swing.JFrame {
         pl2newuser.setForeground(new java.awt.Color(255, 255, 255));
         pl2newuser.setSelected(true);
         pl2newuser.setText("New User");
+        pl2newuser.setEnabled(false);
         pl2newuser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pl2newuserActionPerformed(evt);
@@ -236,8 +243,10 @@ public class StartGame extends javax.swing.JFrame {
         pl2exist.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         pl2exist.setForeground(new java.awt.Color(255, 255, 255));
         pl2exist.setText("Existing user");
+        pl2exist.setEnabled(false);
 
         player2list.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        player2list.setEnabled(false);
         player2list.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 player2listActionPerformed(evt);
@@ -369,6 +378,11 @@ public class StartGame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JDBC getConnection() {
+        return connection;
+    }
+
+    
     private void startbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startbutActionPerformed
 
         if ("".equals(pl1name.getText()) || "".equals(pl2name.getText())) {
@@ -389,7 +403,7 @@ public class StartGame extends javax.swing.JFrame {
                         player1 = new Player(m.getString(2), Player.Tictype.DOT, m.getString(1), m.getString(3));
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error("Player 1 new user selection failed");
                 }
             } else {
                 String player1name = player1list.getSelectedItem().toString();
@@ -399,7 +413,7 @@ public class StartGame extends javax.swing.JFrame {
                         player1 = new Player(m.getString(2), Player.Tictype.DOT, m.getString(1), m.getString(3));
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error("Player 1 existing user selection failed");
                 }
             }
 
@@ -416,7 +430,7 @@ public class StartGame extends javax.swing.JFrame {
                             player2 = new Player(n.getString(2), Player.Tictype.DOT, n.getString(1), n.getString(3));
                         }
                     } catch (Exception ex) {
-                        Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
+                        logger.error("Player 2 new user selection failed");
                     }
                 } else {
                     String player2name = player2list.getSelectedItem().toString();
@@ -426,7 +440,7 @@ public class StartGame extends javax.swing.JFrame {
                             player2 = new Player(n.getString(2), Player.Tictype.DOT, n.getString(1), n.getString(3));
                         }
                     } catch (Exception ex) {
-                        Logger.getLogger(StartGame.class.getName()).log(Level.SEVERE, null, ex);
+                        logger.error("Player 2 existing user selection failed");
                     }
                 }
             }
@@ -463,6 +477,10 @@ public class StartGame extends javax.swing.JFrame {
             pl2exist.setEnabled(false);
             player2list.setEnabled(false);
         } else {
+            pl2exist.setEnabled(true);
+            pl2newuser.setEnabled(true);
+            player2list.setEnabled(true);
+            pl2name.setEnabled(true);
             pl2name.setEditable(true);
             if (pl2name.getText().equals("Computer")) {
                 pl2name.setText("");
