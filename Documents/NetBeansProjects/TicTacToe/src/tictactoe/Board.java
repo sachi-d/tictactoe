@@ -39,9 +39,9 @@ public class Board extends javax.swing.JFrame {
      * @param game
      */
     public Board(Player pl1, Player pl2, StartGame game) {
-        
-        connection=new JDBC();
-        newgame= new TicTacToe();
+
+        connection = new JDBC();
+        newgame = new TicTacToe();
         startpane = game;
         p1 = pl1;
         activeplayer = p1;
@@ -51,11 +51,9 @@ public class Board extends javax.swing.JFrame {
         getContentPane().setBackground(Color.white);
 
         initComponents();
-        
-        
-        
+
         startup();
-        
+
         setLocationRelativeTo(null);
     }
 
@@ -65,16 +63,16 @@ public class Board extends javax.swing.JFrame {
         namelabel1.setText(p1.getname());
         namelabel2.setText(p2.getname());
         p1score.setText(String.valueOf(p1.getScore()));
-        if(!issingle){
+        if (!issingle) {
             p2score.setText(String.valueOf(p2.getScore()));
         }
-        jButton1.setBackground(new Color(250,105,0));
+        jButton1.setBackground(new Color(250, 105, 0));
         jButton1.setContentAreaFilled(false);
         jButton1.setOpaque(true);
-        
+
         playername.setText(activeplayer.getname() + "'s chance");
         final JPanel board = new JPanel(new GridLayout(3, 3, 5, 5));
-        board.setBackground(new Color(100,200,220));
+        board.setBackground(new Color(100, 200, 220));
         for (int i = 0; i < 9; i++) {
             final int j = i;
             final JButton but = new JButton();
@@ -93,6 +91,7 @@ public class Board extends javax.swing.JFrame {
                     but.setEnabled(false);
                     but.setDisabledIcon(activeplayer.geticon());
                     but.setIcon(activeplayer.geticon());
+                    
                     if (!issingle) {
                         if (activeplayer == p1) {
                             playername.setText(p2.getname() + "'s chance");
@@ -110,7 +109,7 @@ public class Board extends javax.swing.JFrame {
                         dance1.setVisible(true);
                         dance2.setVisible(true);
                         playername.setText("Congratulations!!  " + activeplayer.getname() + " wins");
-                        activeplayer.updateScore(startpane.getConnection(),true);
+                        activeplayer.updateScore(startpane.getConnection(), true);
                     } else {
                         if (clickcount == 9) {
                             playername.setText("Draw");
@@ -127,8 +126,8 @@ public class Board extends javax.swing.JFrame {
         board.setVisible(true);
     }
 
-    public void setplayertype(Boolean sing){
-        issingle=sing;
+    public void setplayertype(Boolean sing) {
+        issingle = sing;
     }
 
     private void changeplayer() {
@@ -137,7 +136,7 @@ public class Board extends javax.swing.JFrame {
         } else {
             activeplayer = p1;
         }
-        if (issingle) {
+        if (issingle && activeplayer==p2) {
             int num = newgame.computerdecision();
             
             newgame.buts[num].setActionCommand(activeplayer.getname());
@@ -329,7 +328,7 @@ public class Board extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        StartGame std=new StartGame();
+        StartGame std = new StartGame();
         std.setVisible(true);
         //startpane.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -1,8 +1,1 @@
-2015 Jul 31 10:21:02,947 INFO  [AWT-EventQueue-0]: tictactoe.TicTacToe - won by matching column - 630
-2015 Jul 31 10:21:02,962 ERROR [AWT-EventQueue-0]: tictactoe.JDBC - Exception in put data - com.mysql.jdbc.exceptions.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== '22'  WHERE UserID= '2'' at line 1
-2015 Jul 31 10:26:21,697 INFO  [AWT-EventQueue-0]: tictactoe.TicTacToe - won by matching column - 6 3 0
-2015 Jul 31 10:26:21,712 ERROR [AWT-EventQueue-0]: tictactoe.JDBC - Exception in put data - com.mysql.jdbc.exceptions.MySQLSyntaxErrorException: Unknown column 'Sum' in 'field list'
-2015 Jul 31 10:26:50,542 INFO  [AWT-EventQueue-0]: tictactoe.TicTacToe - won by matching row - 5 4 3
-2015 Jul 31 10:27:52,061 INFO  [AWT-EventQueue-0]: tictactoe.TicTacToe - won by matching column - 6 3 0
-2015 Jul 31 10:27:52,186 ERROR [AWT-EventQueue-0]: tictactoe.JDBC - Exception in put data - com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry 'Sum' for key 'Name_UNIQUE'
-2015 Jul 31 10:28:17,874 INFO  [AWT-EventQueue-0]: tictactoe.TicTacToe - won by matching diagonal - 0 4 8
+2015 Aug 02 10:47:12,442 INFO  [AWT-EventQueue-0]: tictactoe.TicTacToe - won by matching diagonal - 2 4 6

@@ -8,6 +8,7 @@ package tictactoe;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -30,26 +31,26 @@ public class StartGame extends javax.swing.JFrame {
     Player player2;
 
     public StartGame() {
-        
-        
-        connection = new JDBC();
 
+        connection = new JDBC();
+        
         getContentPane().setBackground(Color.white);
         initComponents();
-
+        ImagePanel board = new ImagePanel(new ImageIcon(getClass().getResource("/Resources/art.jpg")).getImage());
+        add(board);
         try {
             ResultSet rs = connection.getData("SELECT * FROM users");
-            
+
             while (rs.next()) {
                 player1list.addItem(rs.getString(2));
-                
+
                 player2list.addItem(rs.getString(2));
             }
             player1list.removeItemAt(0);
             player2list.removeItemAt(0);
 
         } catch (Exception ex) {
-            
+
         }
 
         startbut.setContentAreaFilled(false);
@@ -372,7 +373,7 @@ public class StartGame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -382,13 +383,13 @@ public class StartGame extends javax.swing.JFrame {
         return connection;
     }
 
-    
+
     private void startbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startbutActionPerformed
 
         if ("".equals(pl1name.getText()) || "".equals(pl2name.getText())) {
             JOptionPane.showMessageDialog(this, "Please enter player names", "Empty player details", JOptionPane.ERROR_MESSAGE);
         } else if (pl1name.getText().equalsIgnoreCase("Computer")) {
-            
+
             JOptionPane.showMessageDialog(this, "Please enter a different player name", "False player details", JOptionPane.ERROR_MESSAGE);
         } else {
 
@@ -426,7 +427,7 @@ public class StartGame extends javax.swing.JFrame {
                     connection.putData("INSERT INTO users(Name,Score) VALUES ('" + player2name + "',0");
                     try {
                         n = connection.getData("SELECT * FROM users WHERE Name='" + player2name + "' ");
-                        if(n.next()){
+                        if (n.next()) {
                             player2 = new Player(n.getString(2), Player.Tictype.DOT, n.getString(1), n.getString(3));
                         }
                     } catch (Exception ex) {
@@ -436,7 +437,7 @@ public class StartGame extends javax.swing.JFrame {
                     String player2name = player2list.getSelectedItem().toString();
                     try {
                         n = connection.getData("SELECT * FROM users WHERE Name='" + player2name + "' ");
-                        if(n.next()){
+                        if (n.next()) {
                             player2 = new Player(n.getString(2), Player.Tictype.DOT, n.getString(1), n.getString(3));
                         }
                     } catch (Exception ex) {

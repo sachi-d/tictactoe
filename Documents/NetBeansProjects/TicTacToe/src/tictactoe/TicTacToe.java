@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 public class TicTacToe {
     
     private static final Logger logger =Logger.getLogger(TicTacToe.class);
+    
 
     JButton[] buts = new JButton[9];
     Board newboard;
