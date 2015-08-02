@@ -36,8 +36,10 @@ public class StartGame extends javax.swing.JFrame {
         
         getContentPane().setBackground(Color.white);
         initComponents();
-        ImagePanel board = new ImagePanel(new ImageIcon(getClass().getResource("/Resources/art.jpg")).getImage());
+        //add background pic
+        ImagePanel board = new ImagePanel(new ImageIcon(getClass().getResource("/Resources/board.jpg")).getImage());
         add(board);
+        
         try {
             ResultSet rs = connection.getData("SELECT * FROM users");
 
